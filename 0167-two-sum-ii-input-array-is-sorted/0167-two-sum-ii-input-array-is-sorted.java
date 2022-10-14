@@ -1,3 +1,4 @@
+/* 1st Approach: Using Two Pointer */
 class Solution {
     public int[] twoSum(int[] num, int target) {
         
@@ -20,6 +21,55 @@ class Solution {
                 result[1] = right+1;                
                 break;
             }
+        }
+        
+        return result;
+    }
+}
+
+
+
+/* 2nd Approach: Using Binary Search */
+class Solution {
+    
+    public int binarySearch(int[] numarr, int found, int idx){
+        
+        int start = 0;
+        int end = numarr.length-1;
+        
+        while(start<=end){
+            int mid = start + (end-start)/2;
+            if(numarr[mid]==found && mid!=idx)
+                return mid;            
+            else if(numarr[mid]<=found)
+                start = mid+1;
+            else
+                end = mid-1;
+        }
+        
+        return -1;
+    }
+    
+    
+    
+    public int[] twoSum(int[] num, int target) {
+        
+        //Arrays.sort(num);
+        
+        int idx2 = -1;
+        int result[] = new int[2];
+        
+        for(int idx1=0; idx1<num.length; idx1++){
+            
+            int find = target - num[idx1];
+            
+            idx2 = binarySearch(num,find,idx1);
+            
+            if(idx2 > -1){
+                result[0] = idx1+1;
+                result[1] = idx2+1;
+                break;
+            }            
         }
         
         return result;
